@@ -1,0 +1,19 @@
+.footer-container {
+  /* 자식 font 관련된 */
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 88.02%;
+  color: #888888;
+
+  /* 컨테이너 관련 */
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  gap: 5px;
+  max-width: 1280px;
+  height: 58px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
