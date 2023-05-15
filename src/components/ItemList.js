@@ -4,15 +4,15 @@ import styles from "./ItemList.module.css";
 
 const mockData = [
   {
-    id: 36,
-    type: "Exhibition",
-    title: "카공족 필수템",
-    sub_title: "베스트 아이템 30% 할인",
+    id: 22,
+    type: "Product",
+    title: "카페라떼",
+    sub_title: null,
     brand_name: null,
-    price: null,
-    discountPercentage: null,
+    price: "2500",
+    discountPercentage: 50,
     image_url:
-      "https://images.unsplash.com/photo-1516342243255-ac2202f9f149?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+      "https://images.unsplash.com/photo-1459755486867-b55449bb39ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80",
     brand_image_url: null,
     follower: null,
   },
