@@ -1,7 +1,12 @@
 .main-container {
-  margin: 20px;
+  margin: 40px 70px;
+  /* padding: 20px; */
   height: 600px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.main-container h2 {
+  text-align: left;
 }
