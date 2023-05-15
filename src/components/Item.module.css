@@ -1,4 +1,4 @@
-.item-container {
+/* .item-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -17,9 +17,8 @@
 }
 
 .content-title-container {
+  margin-top: 5px;
+  width: 264px;
   display: flex;
-}
-
-/* .content-description {
-  display: block;
+  justify-content: space-between;
 } */

@@ -10,13 +10,16 @@ function Header() {
 
   // dropdown 메뉴 바깥을 클릭했을때 사라지게하기
   useEffect(() => {
-    console.log(ref.current);
     const handleClickOutside = (e) => {
       if (!ref.current.contains(e.target)) {
         setShowDropdown(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, [showDropdown]);
 
   const buttonClickHandler = () => {
