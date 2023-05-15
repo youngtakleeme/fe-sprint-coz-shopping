@@ -1,18 +1,60 @@
 import React from "react";
-import styles from "./Item.module.css";
+// import styles from "./Item.module.css";
+import styled from "styled-components";
+import Product from "./UI/Product";
+import Category from "./UI/Category";
+import Exhibition from "./UI/Exhibition";
+import Brand from "./UI/Brand";
+
+const Wrapper = styled.section`
+  .item-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .item-container img {
+    display: block;
+    width: 264px;
+    height: 210px;
+  }
+
+  .content-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .content-title-container {
+    margin-top: 5px;
+    width: 264px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .first-title {
+    font-weight: bold;
+  }
+
+  .second-title {
+    font-weight: bold;
+    color: ${(props) => (props.type === "Product" ? "purple" : "black")};
+  }
+
+  .third-title {
+    text-align: ${(props) => (props.type === "Exhibition" ? "left" : "right")};
+  }
+`;
 
 function Item({ dataObj }) {
   return (
-    <div className={styles["item-container"]}>
-      <img src={dataObj.image_url} className="" />
-      <div className={styles["content-container"]}>
-        <div className={styles["content-title-container"]}>
-          <p>텍스트1</p>
-          <p>텍스트2</p>
-        </div>
-        <p className={styles["content-description"]}>텍스트3</p>
-      </div>
-    </div>
+    // {dataObj.type === true &&}
+    <Wrapper type={dataObj.type}>
+      {dataObj.type === "Product" && <Product dataObj={dataObj} />}
+      {dataObj.type === "Category" && <Category dataObj={dataObj} />}
+      {dataObj.type === "Exhibition" && <Exhibition dataObj={dataObj} />}
+      {dataObj.type === "Brand" && <Brand dataObj={dataObj} />}
+    </Wrapper>
   );
 }
 
