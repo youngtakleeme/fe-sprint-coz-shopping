@@ -1,0 +1,4 @@
+.item-list-container {
+  display: flex;
+  gap: 24px;
+}

@@ -1,10 +1,10 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import styles from "./Dropdown.module.css";
 import { Link } from "react-router-dom";
 
-function Dropdown() {
+const Dropdown = forwardRef((props, ref) => {
   return (
-    <ul className={styles["dropdown-menu"]}>
+    <ul ref={ref} className={styles["dropdown-menu"]}>
       <li>
         <span>OOO님, 안녕하세요!</span>
       </li>
@@ -17,6 +17,6 @@ function Dropdown() {
       </Link>
     </ul>
   );
-}
+});
 
 export default Dropdown;
