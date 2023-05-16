@@ -7,9 +7,6 @@ function MainPage({ AllProductData }) {
   const [fourProductData, setFourProductData] = useState([]);
   console.log(fourProductData);
 
-  // 북마크 리스트를 위한 4가지 데이터
-
-  const result = [];
   useEffect(() => {
     AllProductData.some((el, i) => {
       result.push(el);
@@ -19,7 +16,10 @@ function MainPage({ AllProductData }) {
         return true;
       }
     });
-  }, []);
+  }, [AllProductData]);
+  const result = [];
+
+  // 북마크 리스트를 위한 4가지 데이터
 
   return (
     <main className={styles["main-container"]}>
