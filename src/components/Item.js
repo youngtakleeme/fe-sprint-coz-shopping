@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 // import styles from "./Item.module.css";
 import styled from "styled-components";
 import Product from "./UI/Product";
@@ -20,6 +20,11 @@ const Wrapper = styled.section`
     height: 210px;
   }
 
+  .url-image {
+    border-radius: 13px;
+  }
+
+  /* 밑에 text 부분 스타일링 */
   .content-container {
     display: flex;
     flex-direction: column;
@@ -44,16 +49,46 @@ const Wrapper = styled.section`
   .third-title {
     text-align: ${(props) => (props.type === "Exhibition" ? "left" : "right")};
   }
+
+  /* 북마크 아이콘 스타일링 */
+  .bookmark-icon-off,
+  .bookmark-icon-on {
+    position: relative;
+    left: 105px;
+    bottom: ${(props) => (props.type === "Category" ? "65px" : "85px")};
+  }
 `;
 
 function Item({ dataObj }) {
+  const [bookmarked, setBookmarked] = useState(false);
+
+  // bookmark data in local storage
+  // useEffect(() => {}, []);
+
+  const clickBookmarkHandler = (event) => {
+    event.stopPropagation();
+    setBookmarked((prev) => !prev);
+  };
+
   return (
-    // {dataObj.type === true &&}
     <Wrapper type={dataObj.type}>
       {dataObj.type === "Product" && <Product dataObj={dataObj} />}
       {dataObj.type === "Category" && <Category dataObj={dataObj} />}
       {dataObj.type === "Exhibition" && <Exhibition dataObj={dataObj} />}
       {dataObj.type === "Brand" && <Brand dataObj={dataObj} />}
+      {!bookmarked ? (
+        <img
+          className="bookmark-icon-off"
+          src="../images/북마크-아이콘-off.png"
+          onClick={clickBookmarkHandler}
+        />
+      ) : (
+        <img
+          className="bookmark-icon-on"
+          src="../images/북마크-아이콘-on.png"
+          onClick={clickBookmarkHandler}
+        />
+      )}
     </Wrapper>
   );
 }

@@ -3,7 +3,7 @@ import React from "react";
 function Brand({ dataObj }) {
   return (
     <div className="item-container">
-      <img src={dataObj["brand_image_url"]} />
+      <img className="url-image" src={dataObj["brand_image_url"]} />
       <div className={"content-container"}>
         <div className={"content-title-container"}>
           <p className={"first-title"}>{dataObj["brand_name"]}</p>
