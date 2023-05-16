@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // import styles from "./Item.module.css";
 import styled from "styled-components";
 import Product from "./UI/Product";
@@ -62,8 +62,10 @@ const Wrapper = styled.section`
 function Item({ dataObj }) {
   const [bookmarked, setBookmarked] = useState(false);
 
+  // bookmark data in local storage
+  // useEffect(() => {}, []);
+
   const clickBookmarkHandler = (event) => {
-    // console.log(event.target);
     event.stopPropagation();
     setBookmarked((prev) => !prev);
   };
