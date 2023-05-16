@@ -56,6 +56,7 @@ const Wrapper = styled.section`
     position: relative;
     left: 105px;
     bottom: ${(props) => (props.type === "Category" ? "65px" : "85px")};
+    cursor: pointer;
   }
 `;
 
