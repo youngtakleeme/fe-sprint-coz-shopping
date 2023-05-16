@@ -9,10 +9,11 @@ const Dropdown = forwardRef((props, ref) => {
         <span>OOO님, 안녕하세요!</span>
       </li>
       <Link to="/products/list">
-        <img src="../images/상품-아이콘.png" /> <span>상품리스트 페이지</span>
+        <img src="../images/product-icon.png" alt="상품 아이콘" />
+        <span>상품리스트 페이지</span>
       </Link>
       <Link to="/bookmark">
-        <img src="../images/북마크-아이콘.png" />
+        <img src="../images/bookmark-icon.png" alt="북마크 아이콘" />
         <span>북마크 페이지</span>
       </Link>
     </ul>

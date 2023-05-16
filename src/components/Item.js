@@ -60,34 +60,78 @@ const Wrapper = styled.section`
   }
 `;
 
-function Item({ dataObj }) {
-  const [bookmarked, setBookmarked] = useState(false);
+function Item({ productData, setAllBookmarkedItem }) {
+  const [isBookmarked, setIsBookmarked] = useState(false);
+  // const [isBookmarked, setIsBookmarked] = useState(() => {
+  //   const isBookmarkedData = localStorage.getItem("isBookmarked")
+  //     ? JSON.parse(localStorage.getItem("isBookmarked"))
+  //     : [];
+  //   const isBookmark = isBookmarkedData.some((el, index) => {
+  //     if (el.id === productData.id) {
+  //       return true;
+  //     }
+  //   });
+  //   return isBookmark;
+  // });
+  // console.log(isBookmarked);
 
   // bookmark data in local storage
   // useEffect(() => {}, []);
 
   const clickBookmarkHandler = (event) => {
     event.stopPropagation();
-    setBookmarked((prev) => !prev);
+    setIsBookmarked((prev) => !prev);
+    // localStorage.setItem("isBookmarked", [productData.id]);
+    setAllBookmarkedItem((prev) => [...prev, productData]);
   };
 
   return (
-    <Wrapper type={dataObj.type}>
-      {dataObj.type === "Product" && <Product dataObj={dataObj} />}
-      {dataObj.type === "Category" && <Category dataObj={dataObj} />}
-      {dataObj.type === "Exhibition" && <Exhibition dataObj={dataObj} />}
-      {dataObj.type === "Brand" && <Brand dataObj={dataObj} />}
-      {!bookmarked ? (
+    <Wrapper type={productData.type}>
+      <div className="item-container">
+        <img
+          className="url-image"
+          src={
+            productData.type === "Brand"
+              ? productData.brand_image_url
+              : productData.image_url
+          }
+          alt={`${productData.title} 이미지`}
+        />
+        <div className={"content-container"}>
+          <div className={"content-title-container"}>
+            <p className={"first-title"}>
+              {productData.type === "Brand"
+                ? productData.brand_name
+                : productData.title}
+            </p>
+            <p className={"second-title"}>
+              {productData.type === "Exhibition" ||
+                (productData.type === "Category" && "")}
+              {productData.type === "Product"
+                ? `${productData.discountPercentage}%`
+                : "관심고객수"}
+            </p>
+          </div>
+          <p className={`content-description third-title`}>
+            {productData.type === "Brand" && `${productData.follower}명`}
+            {productData.type === "Category" && ""}
+            {productData.type === "Brand" && productData.sub_title}
+            {productData.type === "Product" &&
+              `${Number(productData["price"]).toLocaleString()}원`}
+          </p>
+        </div>
+      </div>
+      {!isBookmarked ? (
         <img
           className="bookmark-icon-off"
-          src="../images/북마크-아이콘-off.png"
+          src="../images/bookmark-icon-off.png"
           onClick={clickBookmarkHandler}
           alt="활성화되지 않은 북마크 아이콘"
         />
       ) : (
         <img
           className="bookmark-icon-on"
-          src="../images/북마크-아이콘-on.png"
+          src="../images/bookmark-icon-on.png"
           onClick={clickBookmarkHandler}
           alt="활성화된 북마크 아이콘"
         />

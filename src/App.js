@@ -8,23 +8,29 @@ import Footer from "./components/Footer";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
-  const [AllProductData, setAllProductData] = useState([]);
+  const [productList, setProductList] = useState([]);
   const [error, setError] = useState(null);
-  // console.log(AllProductData);
+  const [allBookmarkedItem, setAllBookmarkedItem] = useState(() => {
+    const initialData = localStorage.getItem("bookmarked");
+    return initialData ? JSON.parse(initialData) : [];
+  });
+  console.log(allBookmarkedItem);
 
   useEffect(() => {
     fetch("http://cozshopping.codestates-seb.link/api/v1/products")
       .then((res) => res.json())
       .then((data) => {
         const sortedData = data.sort((a, b) => a.id - b.id);
-        setAllProductData(sortedData);
-        // console.log(sortedData);
+        setProductList(sortedData);
       })
       .catch((err) => {
-        // console.dir(err);
         setError(err.message);
       });
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("bookmarked", allBookmarkedItem);
+  }, [allBookmarkedItem]);
 
   return (
     <Router>
@@ -44,7 +50,13 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={<MainPage AllProductData={AllProductData} />}
+            element={
+              <MainPage
+                productList={productList}
+                setAllBookmarkedItem={setAllBookmarkedItem}
+                allBookmarkedItem={allBookmarkedItem}
+              />
+            }
           />
           <Route path="/products/list" element={<ProductListPage />} />
           <Route path="/bookmark" element={<BookmarkPage />} />

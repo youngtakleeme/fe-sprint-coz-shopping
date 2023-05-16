@@ -1,19 +1,19 @@
 import React from "react";
 
-function Product({ dataObj }) {
+function Product({ itemData }) {
   return (
     <div className="item-container">
       <img
         className="url-image"
-        src={dataObj["image_url"]}
-        alt={`${dataObj.title} 이미지`}
+        src={itemData["image_url"]}
+        alt={`${itemData.title} 이미지`}
       />
       <div className={"content-container"}>
         <div className={"content-title-container"}>
-          <p className={"first-title"}>{dataObj.title}</p>
-          <p className={"second-title"}>{dataObj.discountPercentage}%</p>
+          <p className={"first-title"}>{itemData.title}</p>
+          <p className={"second-title"}>{itemData.discountPercentage}%</p>
         </div>
-        <p className={`content-description third-title`}>{dataObj.price}원</p>
+        <p className={`content-description third-title`}>{itemData.price}원</p>
       </div>
     </div>
   );

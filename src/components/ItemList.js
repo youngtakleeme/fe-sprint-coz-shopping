@@ -2,11 +2,15 @@ import React from "react";
 import Item from "./Item";
 import styles from "./ItemList.module.css";
 
-function ItemList({ ItemsData }) {
+function ItemList({ productsData, setAllBookmarkedItem }) {
   return (
     <div className={styles["item-list-container"]}>
-      {ItemsData.map((el, i) => (
-        <Item key={el.id} dataObj={el} />
+      {productsData.map((productData) => (
+        <Item
+          key={productData.id}
+          productData={productData}
+          setAllBookmarkedItem={setAllBookmarkedItem}
+        />
       ))}
     </div>
   );
