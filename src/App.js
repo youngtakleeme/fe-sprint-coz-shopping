@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 function App() {
   const [AllProductData, setAllProductData] = useState([]);
   const [error, setError] = useState(null);
+  // console.log(AllProductData);
 
   useEffect(() => {
     fetch("http://cozshopping.codestates-seb.link/api/v1/products")
@@ -41,7 +42,10 @@ function App() {
           )}
         </div>
         <Routes>
-          <Route path="/" element={<MainPage />} />
+          <Route
+            path="/"
+            element={<MainPage AllProductData={AllProductData} />}
+          />
           <Route path="/products/list" element={<ProductListPage />} />
           <Route path="/bookmark" element={<BookmarkPage />} />
         </Routes>
