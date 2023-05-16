@@ -8,6 +8,7 @@ function MainPage({ AllProductData }) {
   console.log(fourProductData);
 
   useEffect(() => {
+    const result = [];
     AllProductData.some((el, i) => {
       result.push(el);
       if (el.id === 3) {
@@ -17,7 +18,6 @@ function MainPage({ AllProductData }) {
       }
     });
   }, [AllProductData]);
-  const result = [];
 
   // 북마크 리스트를 위한 4가지 데이터
 

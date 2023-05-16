@@ -82,12 +82,14 @@ function Item({ dataObj }) {
           className="bookmark-icon-off"
           src="../images/북마크-아이콘-off.png"
           onClick={clickBookmarkHandler}
+          alt="활성화되지 않은 북마크 아이콘"
         />
       ) : (
         <img
           className="bookmark-icon-on"
           src="../images/북마크-아이콘-on.png"
           onClick={clickBookmarkHandler}
+          alt="활성화된 북마크 아이콘"
         />
       )}
     </Wrapper>
