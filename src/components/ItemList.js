@@ -3,6 +3,7 @@ import Item from "./Item";
 import styles from "./ItemList.module.css";
 
 function ItemList({ productsData }) {
+  // 초기 북마크된 상품이 없을경우 북마크 리스트 화면에 이 요소들을 보여줌
   const noBookmarkedItem = (
     <>
       <div className={styles["no-bookmarked-content"]}>

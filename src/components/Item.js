@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import styles from "./Item.module.css";
 import styled from "styled-components";
 import { ADD_TO_BOOKMARK, REMOVE_FROM_BOOKMARK } from "../actions";
 
@@ -60,30 +59,27 @@ const Wrapper = styled.section`
 
 function Item({ productData }) {
   // 먼저 리덕스 북마크된 상품 데이터를 확인해보기
-  // 북마크된 상품이면 초기 state 값을 true, 아니면 false 를 할당
   const state = useSelector((state) => state);
   const { bookmarkedItems } = state;
   const dispatch = useDispatch();
-  const [isBookmarked, setIsBookmarked] = useState(
-    checkIsBookmarked(bookmarkedItems, productData)
-  );
+  const [isBookmarked, setIsBookmarked] = useState(false);
 
-  function checkIsBookmarked(bookmarkedItems, productData) {
-    if (!bookmarkedItems.length) {
-      return false;
-    }
-    return bookmarkedItems.some(
-      (bookmarkedItem) => bookmarkedItem.id === productData.id
+  // 북마크 state와 리덕스의 데이트와 싱크 맞춰주기
+  useEffect(() => {
+    setIsBookmarked(
+      bookmarkedItems.some(
+        (bookmarkedItem) => bookmarkedItem.id === productData.id
+      )
     );
-  }
-  console.log(isBookmarked);
+  }, [bookmarkedItems, productData]);
 
+  // 북마크 아이콘 클릭했을때 local state와 리덕스에 상태 업데이트해주기
   const clickBookmarkHandler = (event) => {
     event.stopPropagation();
-    setIsBookmarked((prev) => !prev);
     !isBookmarked
       ? dispatch({ type: ADD_TO_BOOKMARK, payload: productData })
-      : dispatch({ type: REMOVE_FROM_BOOKMARK, payload: productData.id });
+      : dispatch({ type: REMOVE_FROM_BOOKMARK, payload: productData });
+    setIsBookmarked((prev) => !prev);
   };
 
   return (
