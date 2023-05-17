@@ -102,18 +102,18 @@ function Item({ productData }) {
                 : productData.title}
             </p>
             <p className={"second-title"}>
-              {productData.type === "Exhibition" ||
-                (productData.type === "Category" && "")}
-              {productData.type === "Product"
-                ? `${productData.discountPercentage}%`
-                : "관심고객수"}
+              {productData.type === "Exhibition" && ""}
+              {productData.type === "Category" && ""}
+              {productData.type === "Product" &&
+                `${productData.discountPercentage}%`}
+              {productData.type === "Brand" && `관심고객수`}
             </p>
           </div>
           <p className={`content-description third-title`}>
             {productData.type === "Brand" &&
               `${Number(productData.follower).toLocaleString()}명`}
             {productData.type === "Category" && ""}
-            {productData.type === "Brand" && productData.sub_title}
+            {productData.type === "Exhibition" && productData.sub_title}
             {productData.type === "Product" &&
               `${Number(productData.price).toLocaleString()}원`}
           </p>
