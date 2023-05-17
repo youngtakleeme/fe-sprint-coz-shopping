@@ -2,3 +2,8 @@
   display: flex;
   gap: 24px;
 }
+
+.no-bookmarked-content {
+  margin: 10px auto;
+  /* margin-left: auto; */
+}

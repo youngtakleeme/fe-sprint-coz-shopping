@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 // import styles from "./Item.module.css";
 import styled from "styled-components";
-import Product from "./UI/Product";
-import Category from "./UI/Category";
-import Exhibition from "./UI/Exhibition";
-import Brand from "./UI/Brand";
+import { ADD_TO_BOOKMARK, REMOVE_FROM_BOOKMARK } from "../actions";
 
 const Wrapper = styled.section`
   .item-container {
@@ -60,34 +58,84 @@ const Wrapper = styled.section`
   }
 `;
 
-function Item({ dataObj }) {
-  const [bookmarked, setBookmarked] = useState(false);
+function Item({ productData }) {
+  // 먼저 리덕스 북마크된 상품 데이터를 확인해보기
+  // 북마크된 상품이면 초기 state 값을 true, 아니면 false 를 할당
+  const state = useSelector((state) => state);
+  const { bookmarkedItems } = state;
+  const dispatch = useDispatch();
+  const [isBookmarked, setIsBookmarked] = useState(
+    checkIsBookmarked(bookmarkedItems, productData)
+  );
 
-  // bookmark data in local storage
-  // useEffect(() => {}, []);
+  function checkIsBookmarked(bookmarkedItems, productData) {
+    if (!bookmarkedItems.length) {
+      return false;
+    }
+    return bookmarkedItems.some(
+      (bookmarkedItem) => bookmarkedItem.id === productData.id
+    );
+  }
+  console.log(isBookmarked);
 
   const clickBookmarkHandler = (event) => {
     event.stopPropagation();
-    setBookmarked((prev) => !prev);
+    setIsBookmarked((prev) => !prev);
+    !isBookmarked
+      ? dispatch({ type: ADD_TO_BOOKMARK, payload: productData })
+      : dispatch({ type: REMOVE_FROM_BOOKMARK, payload: productData.id });
   };
 
   return (
-    <Wrapper type={dataObj.type}>
-      {dataObj.type === "Product" && <Product dataObj={dataObj} />}
-      {dataObj.type === "Category" && <Category dataObj={dataObj} />}
-      {dataObj.type === "Exhibition" && <Exhibition dataObj={dataObj} />}
-      {dataObj.type === "Brand" && <Brand dataObj={dataObj} />}
-      {!bookmarked ? (
+    <Wrapper type={productData.type}>
+      <div className="item-container">
+        <img
+          className="url-image"
+          src={
+            productData.type === "Brand"
+              ? productData.brand_image_url
+              : productData.image_url
+          }
+          alt={`${productData.title} 이미지`}
+        />
+        <div className={"content-container"}>
+          <div className={"content-title-container"}>
+            <p className={"first-title"}>
+              {productData.type === "Brand"
+                ? productData.brand_name
+                : productData.title}
+            </p>
+            <p className={"second-title"}>
+              {productData.type === "Exhibition" ||
+                (productData.type === "Category" && "")}
+              {productData.type === "Product"
+                ? `${productData.discountPercentage}%`
+                : "관심고객수"}
+            </p>
+          </div>
+          <p className={`content-description third-title`}>
+            {productData.type === "Brand" &&
+              `${Number(productData.follower).toLocaleString()}명`}
+            {productData.type === "Category" && ""}
+            {productData.type === "Brand" && productData.sub_title}
+            {productData.type === "Product" &&
+              `${Number(productData.price).toLocaleString()}원`}
+          </p>
+        </div>
+      </div>
+      {!isBookmarked ? (
         <img
           className="bookmark-icon-off"
-          src="../images/북마크-아이콘-off.png"
+          src="../images/bookmark-icon-off.png"
           onClick={clickBookmarkHandler}
+          alt="활성화되지 않은 북마크 아이콘"
         />
       ) : (
         <img
           className="bookmark-icon-on"
-          src="../images/북마크-아이콘-on.png"
+          src="../images/bookmark-icon-on.png"
           onClick={clickBookmarkHandler}
+          alt="활성화된 북마크 아이콘"
         />
       )}
     </Wrapper>

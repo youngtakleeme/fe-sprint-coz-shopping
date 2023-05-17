@@ -5,14 +5,14 @@ import Dropdown from "./Dropdown";
 import { Link } from "react-router-dom";
 
 function Header() {
-  const [showDropdown, setShowDropdown] = useState(false);
+  const [isOpenDropdown, setIsOpenDropdown] = useState(false);
   const ref = useRef(null);
 
   // dropdown 메뉴 바깥을 클릭했을때 사라지게하기
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (!ref.current.contains(e.target)) {
-        setShowDropdown(false);
+        setIsOpenDropdown(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -20,26 +20,26 @@ function Header() {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [showDropdown]);
+  }, [isOpenDropdown]);
 
   const buttonClickHandler = () => {
-    setShowDropdown(!showDropdown);
+    setIsOpenDropdown(!isOpenDropdown);
   };
 
   return (
     <header>
       <Link to="/" className={styles["logo-container"]}>
-        <img src="../images/로고.png" alt="logo" />
+        <img src="../images/logo.png" alt="코드스테이츠 로고" />
         <h1>COZ Shopping</h1>
       </Link>
       <div ref={ref} className={styles["button-container"]}>
         <img
-          src="../images/아이콘.png"
+          src="../images/hamburger-icon.png"
           alt="햄버거 아이콘"
           className={styles["dropdown-button"]}
           onClick={buttonClickHandler}
         />
-        {showDropdown && <Dropdown />}
+        {isOpenDropdown && <Dropdown />}
       </div>
     </header>
   );
