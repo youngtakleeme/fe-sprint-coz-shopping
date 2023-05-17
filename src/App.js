@@ -6,38 +6,49 @@ import ProductListPage from "./Pages/ProductListPage";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { ADD_TO_PRODUCT_LIST } from "./actions";
 
 function App() {
-  const [productList, setProductList] = useState([]);
-  const [error, setError] = useState(null);
-  const [allBookmarkedItem, setAllBookmarkedItem] = useState(() => {
-    const initialData = localStorage.getItem("bookmarked");
-    return initialData ? JSON.parse(initialData) : [];
-  });
-  console.log(allBookmarkedItem);
+  const dispatch = useDispatch();
 
+  // 사실 여기서는 받아올 필요 없지만 그냥 콘솔로그 테스트용임
+  const state = useSelector((state) => state);
+  const { productList, bookmarkedItems } = state;
+  // console.log(state);
+  // console.log(productList);
+
+  // 앱 시작할때 상품 전체데이터 받아와서 id순으로 정렬해서 redux에 dispatch 날려서 데이터 저장하기
   useEffect(() => {
     fetch("http://cozshopping.codestates-seb.link/api/v1/products")
       .then((res) => res.json())
       .then((data) => {
         const sortedData = data.sort((a, b) => a.id - b.id);
-        setProductList(sortedData);
+        dispatch({ type: ADD_TO_PRODUCT_LIST, payload: sortedData });
       })
       .catch((err) => {
-        setError(err.message);
+        console.log(err.message);
       });
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem("bookmarked", allBookmarkedItem);
-  }, [allBookmarkedItem]);
+  // 로컬스토리지에 저장하는 부분 나중에 다시 살펴봐
+  // const [error, setError] = useState(null);
+  // const [allBookmarkedItem, setAllBookmarkedItem] = useState(() => {
+  //   const initialData = localStorage.getItem("bookmarked");
+  //   return initialData ? JSON.parse(initialData) : [];
+  // });
+  // console.log(allBookmarkedItem);
+
+  // useEffect(() => {
+  //   localStorage.setItem("bookmarked", allBookmarkedItem);
+  // }, [allBookmarkedItem]);
 
   return (
     <Router>
       <div className={styles["app-container"]}>
         <Header />
         <div className="error-message">
-          {error && (
+          {/* {error && (
             <>
               <p>{error}</p>
               <p>
@@ -45,19 +56,10 @@ function App() {
                 해주세요
               </p>
             </>
-          )}
+          )} */}
         </div>
         <Routes>
-          <Route
-            path="/"
-            element={
-              <MainPage
-                productList={productList}
-                setAllBookmarkedItem={setAllBookmarkedItem}
-                allBookmarkedItem={allBookmarkedItem}
-              />
-            }
-          />
+          <Route path="/" element={<MainPage />} />
           <Route path="/products/list" element={<ProductListPage />} />
           <Route path="/bookmark" element={<BookmarkPage />} />
         </Routes>

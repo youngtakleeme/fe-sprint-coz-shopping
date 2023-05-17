@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
 // import styles from "./Item.module.css";
 import styled from "styled-components";
-import Product from "./UI/Product";
-import Category from "./UI/Category";
-import Exhibition from "./UI/Exhibition";
-import Brand from "./UI/Brand";
 
 const Wrapper = styled.section`
   .item-container {
@@ -60,7 +56,7 @@ const Wrapper = styled.section`
   }
 `;
 
-function Item({ productData, setAllBookmarkedItem }) {
+function Item({ productData }) {
   const [isBookmarked, setIsBookmarked] = useState(false);
   // const [isBookmarked, setIsBookmarked] = useState(() => {
   //   const isBookmarkedData = localStorage.getItem("isBookmarked")
@@ -82,7 +78,7 @@ function Item({ productData, setAllBookmarkedItem }) {
     event.stopPropagation();
     setIsBookmarked((prev) => !prev);
     // localStorage.setItem("isBookmarked", [productData.id]);
-    setAllBookmarkedItem((prev) => [...prev, productData]);
+    // setAllBookmarkedItem((prev) => [...prev, productData]);
   };
 
   return (
@@ -113,11 +109,12 @@ function Item({ productData, setAllBookmarkedItem }) {
             </p>
           </div>
           <p className={`content-description third-title`}>
-            {productData.type === "Brand" && `${productData.follower}명`}
+            {productData.type === "Brand" &&
+              `${Number(productData.follower).toLocaleString()}명`}
             {productData.type === "Category" && ""}
             {productData.type === "Brand" && productData.sub_title}
             {productData.type === "Product" &&
-              `${Number(productData["price"]).toLocaleString()}원`}
+              `${Number(productData.price).toLocaleString()}원`}
           </p>
         </div>
       </div>
