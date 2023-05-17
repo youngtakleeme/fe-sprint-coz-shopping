@@ -6,8 +6,12 @@ function ItemList({ productsData }) {
   const noBookmarkedItem = (
     <>
       <div className={styles["no-bookmarked-content"]}>
-        <p>북마크한 상품이 없습니다.</p>
-        <p>북마크할 새로운 상품을 추가해보세요</p>
+        <img
+          src="../images/bookmark-icon-off.png"
+          alt="활성화되지 않은 북마크 아이콘"
+        />
+        <p>아직 북마크된 상품이 없습니다.</p>
+        <p>북마크할 새로운 상품을 추가해보세요!</p>
       </div>
     </>
   );
@@ -17,11 +21,7 @@ function ItemList({ productsData }) {
       {!productsData.length
         ? noBookmarkedItem
         : productsData.map((productData) => (
-            <Item
-              key={productData.id}
-              productData={productData}
-              // setAllBookmarkedItem={setAllBookmarkedItem}
-            />
+            <Item key={productData.id} productData={productData} />
           ))}
     </div>
   );

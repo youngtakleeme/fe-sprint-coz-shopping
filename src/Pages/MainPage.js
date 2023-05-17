@@ -20,20 +20,14 @@ function MainPage() {
     return extractedArray;
   }
 
-  // itemList에 내려보낼 데이터 2가지
+  // (상품리스트) itemList에 prop으로 내려보낼 데이터
   const productsData = extractNumberOfElement(productList, defaultProductCount);
+
+  // (북마크리스트) itemList에 prop으로 내려보낼 데이터
   const bookmarkedProductsData = extractNumberOfElement(
     bookmarkedItems,
     defaultProductCount
   );
-  console.log(productsData);
-
-  // 북마크된 데이터 전체 속성: 이렇게 하지말고 애초에 로컬스토리지에 저장할때 객체형태로 넣어야겠다. 해결!
-  // const BookmarkedDataObj = allBookmarkedItem.filter((el, index) => {
-  //   if (allBookmarkedItem.include(el.id)) {
-  //     return true;
-  //   }
-  // });
 
   return (
     <main className={styles["main-container"]}>
