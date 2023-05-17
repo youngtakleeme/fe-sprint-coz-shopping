@@ -19,26 +19,27 @@ const itemReducer = (state = initialState, action) => {
         bookmarkedItems: action.payload,
       };
     case ADD_TO_BOOKMARK:
-      localStorage.setItem("bookmarekItemList", [
-        ...state.bookmarkedItems,
-        action.payload,
-      ]);
-
+      localStorage.setItem(
+        "bookmarkedItemList",
+        JSON.stringify([...state.bookmarkedItems, action.payload])
+      );
       return {
         ...state,
         bookmarkedItems: [...state.bookmarkedItems, action.payload],
       };
     case REMOVE_FROM_BOOKMARK:
-      localStorage.setItem("bookmarekItemList", [
-        state.bookmarkedItems.filter((bookmarkedItem) => {
-          return bookmarkedItem.id !== action.payload;
-        }),
-      ]);
-
+      localStorage.setItem(
+        "bookmarkedItemList",
+        JSON.stringify(
+          state.bookmarkedItems.filter((bookmarkedItem) => {
+            return bookmarkedItem.id !== action.payload.id;
+          })
+        )
+      );
       return {
         ...state,
         bookmarkedItems: state.bookmarkedItems.filter((bookmarkedItem) => {
-          return bookmarkedItem.id !== action.payload;
+          return bookmarkedItem.id !== action.payload.id;
         }),
       };
     default:

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import ItemList from "../components/ItemList";
 import styles from "./MainPage.module.css";
 import { useSelector } from "react-redux";
@@ -7,7 +7,7 @@ function MainPage() {
   const state = useSelector((state) => state);
   const { productList, bookmarkedItems } = state;
 
-  // 전달되는 인자의 숫자만큼 요소를 뽑아서 배열을 반환하는 함수화 시켜볼까
+  // 전달인자로 받은 number 개수만큼의 요소만 포함하는 배열을 반화하는 함수
   const defaultProductCount = 4;
   function extractNumberOfElement(dataArr, number) {
     const extractedArray = [];
