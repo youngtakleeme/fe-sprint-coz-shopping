@@ -8,7 +8,7 @@ import Footer from "./components/Footer";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { ADD_TO_PRODUCT_LIST, SET_INITIAL_BOOKMARK } from "./actions";
-import { dummyData } from "./dummyData/dummy";
+import { dummyData } from "./data/dummyData";
 
 function App() {
   const dispatch = useDispatch();

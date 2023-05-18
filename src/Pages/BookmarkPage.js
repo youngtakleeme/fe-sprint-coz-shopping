@@ -1,7 +1,8 @@
 import React from "react";
+import ProductListLayout from "../layouts/ProductListLayout";
 
 function BookmarkPage() {
-  return <div>BookmarkPage</div>;
+  return <ProductListLayout reduxStateProperty="bookmarkedItems" />;
 }
 
 export default BookmarkPage;
