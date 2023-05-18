@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { addToBookmark, removeFromBookmark } from "../actions";
+import Modal from "./Modal";
 
 const Wrapper = styled.section`
   .item-container {
@@ -63,6 +64,7 @@ function Item({ productData }) {
   const { bookmarkedItems } = state;
   const dispatch = useDispatch();
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // 북마크 state와 리덕스의 데이트와 싱크 맞춰주기
   useEffect(() => {
@@ -82,59 +84,76 @@ function Item({ productData }) {
     setIsBookmarked((prev) => !prev);
   };
 
+  // Modal 띄울건지 결정하는 handeler function
+  const clickItemHandler = () => {
+    setIsModalOpen((prev) => !prev);
+  };
+
   return (
-    <Wrapper type={productData.type}>
-      <div className="item-container">
-        <img
-          className="url-image"
-          src={
-            productData.type === "Brand"
-              ? productData.brand_image_url
-              : productData.image_url
-          }
-          alt={`${productData.title} 이미지`}
-        />
-        <div className={"content-container"}>
-          <div className={"content-title-container"}>
-            <p className={"first-title"}>
-              {productData.type === "Brand"
-                ? productData.brand_name
-                : productData.title}
-            </p>
-            <p className={"second-title"}>
-              {productData.type === "Exhibition" && ""}
+    <>
+      <Wrapper type={productData.type}>
+        <div className="item-container" onClick={clickItemHandler}>
+          <img
+            className="url-image"
+            src={
+              productData.type === "Brand"
+                ? productData.brand_image_url
+                : productData.image_url
+            }
+            alt={`${productData.title} 이미지`}
+          />
+          <div className={"content-container"}>
+            <div className={"content-title-container"}>
+              <p className={"first-title"}>
+                {productData.type === "Brand"
+                  ? productData.brand_name
+                  : productData.title}
+              </p>
+              <p className={"second-title"}>
+                {productData.type === "Exhibition" && ""}
+                {productData.type === "Category" && ""}
+                {productData.type === "Product" &&
+                  `${productData.discountPercentage}%`}
+                {productData.type === "Brand" && `관심고객수`}
+              </p>
+            </div>
+            <p className={`content-description third-title`}>
+              {productData.type === "Brand" &&
+                `${Number(productData.follower).toLocaleString()}명`}
               {productData.type === "Category" && ""}
+              {productData.type === "Exhibition" && productData.sub_title}
               {productData.type === "Product" &&
-                `${productData.discountPercentage}%`}
-              {productData.type === "Brand" && `관심고객수`}
+                `${Number(productData.price).toLocaleString()}원`}
             </p>
           </div>
-          <p className={`content-description third-title`}>
-            {productData.type === "Brand" &&
-              `${Number(productData.follower).toLocaleString()}명`}
-            {productData.type === "Category" && ""}
-            {productData.type === "Exhibition" && productData.sub_title}
-            {productData.type === "Product" &&
-              `${Number(productData.price).toLocaleString()}원`}
-          </p>
         </div>
-      </div>
-      {!isBookmarked ? (
-        <img
-          className="bookmark-icon-off"
-          src="../images/bookmark-icon-off.png"
-          onClick={clickBookmarkHandler}
-          alt="활성화되지 않은 북마크 아이콘"
+        {!isBookmarked ? (
+          <img
+            className="bookmark-icon-off"
+            src="../images/bookmark-icon-off.png"
+            onClick={clickBookmarkHandler}
+            alt="활성화되지 않은 북마크 아이콘"
+          />
+        ) : (
+          <img
+            className="bookmark-icon-on"
+            src="../images/bookmark-icon-on.png"
+            onClick={clickBookmarkHandler}
+            alt="활성화된 북마크 아이콘"
+          />
+        )}
+      </Wrapper>
+      {isModalOpen ? (
+        <Modal
+          productData={productData}
+          clickBookmarkHandler={clickBookmarkHandler}
+          isBookmarked={isBookmarked}
+          clickItemHandler={clickItemHandler}
         />
       ) : (
-        <img
-          className="bookmark-icon-on"
-          src="../images/bookmark-icon-on.png"
-          onClick={clickBookmarkHandler}
-          alt="활성화된 북마크 아이콘"
-        />
+        ""
       )}
-    </Wrapper>
+    </>
   );
 }
 
