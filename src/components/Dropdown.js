@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 const Dropdown = forwardRef((props, ref) => {
   return (
     <ul ref={ref} className={styles["dropdown-menu"]}>
-      <li>
+      <Link to="/">
         <span>OOO님, 안녕하세요!</span>
-      </li>
+      </Link>
       <Link to="/products/list">
         <img src="../images/product-icon.png" alt="상품 아이콘" />
         <span>상품리스트 페이지</span>
