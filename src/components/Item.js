@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { ADD_TO_BOOKMARK, REMOVE_FROM_BOOKMARK } from "../actions";
+import { addToBookmark, removeFromBookmark } from "../actions";
 
 const Wrapper = styled.section`
   .item-container {
@@ -77,8 +77,8 @@ function Item({ productData }) {
   const clickBookmarkHandler = (event) => {
     event.stopPropagation();
     !isBookmarked
-      ? dispatch({ type: ADD_TO_BOOKMARK, payload: productData })
-      : dispatch({ type: REMOVE_FROM_BOOKMARK, payload: productData });
+      ? dispatch(addToBookmark(productData))
+      : dispatch(removeFromBookmark(productData));
     setIsBookmarked((prev) => !prev);
   };
 

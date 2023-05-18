@@ -7,7 +7,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { ADD_TO_PRODUCT_LIST, SET_INITIAL_BOOKMARK } from "./actions";
+import { addToProductList, setInitialBookmark } from "./actions";
 import { dummyData } from "./data/dummyData";
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         const sortedData = data.sort((a, b) => a.id - b.id);
-        dispatch({ type: ADD_TO_PRODUCT_LIST, payload: sortedData });
+        dispatch(addToProductList(sortedData));
       })
       .catch((err) => {
         setErrMsg(err.message);
@@ -40,7 +40,7 @@ function App() {
       localStorage.getItem("bookmarkedItemList")
     );
     if (bookmarkedItemList) {
-      dispatch({ type: SET_INITIAL_BOOKMARK, payload: bookmarkedItemList });
+      dispatch(setInitialBookmark(bookmarkedItemList));
     }
   }, []);
 
